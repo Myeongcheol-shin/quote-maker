@@ -3,6 +3,8 @@ package com.shino72.d
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -23,43 +25,33 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val quote = intent.getSerializableExtra("quote") as Quote
+        val uri = intent.getParcelableExtra<Uri>("uri")
         binding.apply {
-            ivBtn.setOnClickListener {
-                openGallery()
-            }
-        }
-    }
-    private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode)
-        {
-            PICK_IMAGE_REQUEST -> {
-
-                val returnUri = data?.data
-                if(returnUri != null) {
-                    val bitmap = uriToBitmap(returnUri)
-                    BackgroundRemover.bitmapForProcessing(
-                        bitmap!!,
-                        true,
-                        object: OnBackgroundChangeListener {
-                            override fun onSuccess(bitmap: Bitmap) {
-                                //do what ever you want to do with this bitmap
-                                binding.iv.apply {
-                                    Glide.with(this@MainActivity).load(bitmap).into(this)
-                                }
-                            }
-
-                            override fun onFailed(exception: Exception) {
-                                //exception
+            nameTv.text = quote.name
+            dateTv.text = quote.date
+            quoteTv.text = quote.quote
+            if(uri != null){
+                val bitmap = uriToBitmap(uri)
+                BackgroundRemover.bitmapForProcessing(
+                    bitmap!!,
+                    true,
+                    object: OnBackgroundChangeListener {
+                        override fun onSuccess(bitmap: Bitmap) {
+                            //do what ever you want to do with this bitmap
+                            binding.iv.apply {
+                                Glide.with(this@MainActivity).load(bitmap).into(this)
+                                val matrix = ColorMatrix()
+                                matrix.setSaturation(0f)
+                                colorFilter = ColorMatrixColorFilter(matrix)
                             }
                         }
-                    )
-                }
+
+                        override fun onFailed(exception: Exception) {
+                            //exception
+                        }
+                    }
+                )
             }
         }
     }
