@@ -17,6 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <EditText
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:id="@+id/name_et"
         android:layout_margin="10dp"
         android:background="@drawable/input_background"
@@ -34,6 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <EditText
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:id="@+id/date_et"
         android:layout_margin="10dp"
         android:background="@drawable/input_background"
@@ -51,6 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <EditText
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:id="@+id/quote_et"
         android:layout_margin="10dp"
         android:background="@drawable/input_background"
@@ -75,6 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"/>
         <androidx.appcompat.widget.AppCompatButton
+            android:fontFamily="@font/nanum"
             android:id="@+id/add_btn"
             android:layout_margin="10dp"
             android:layout_gravity="center"
@@ -97,6 +104,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"/>
     <androidx.appcompat.widget.AppCompatButton
+        android:fontFamily="@font/nanum"
         android:id="@+id/make_btn"
         android:layout_margin="20dp"
         android:layout_gravity="center"
